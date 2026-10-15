@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Investment Allocator AI</title>
+
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- ================= HEADER ================= -->
+
+      <header class="hero">
+        <div class="hero-badge">✦ AGENTIC AI INVESTMENT PLATFORM</div>
+
+        <h1>Investment Allocator <span>AI</span></h1>
+
+        <p>
+          Analyze your investor profile, assess risk, build an asset allocation,
+          and discover suitable ETFs using an Agentic AI workflow.
+        </p>
+      </header>
+
+      <!-- ================= INPUT ================= -->
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">01</span>
+            <h2>Investor Profile</h2>
+          </div>
+
+          <span class="status-badge"> ● AI Ready </span>
+        </div>
+
+        <form id="investmentForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input
+                type="number"
+                id="age"
+                min="18"
+                max="100"
+                value="30"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="goal">Investment Goal</label>
+
+              <select id="goal" required>
+                <option value="retirement">Retirement</option>
+
+                <option value="wealth creation">Wealth Creation</option>
+
+                <option value="house">Buying a House</option>
+
+                <option value="education">Education</option>
+
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="horizon"> Investment Horizon </label>
+
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="horizon"
+                  min="1"
+                  max="50"
+                  value="25"
+                  required
+                />
+
+                <span class="unit-right">Years</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="income"> Monthly Income </label>
+
+              <div class="input-with-unit">
+                <span>₹</span>
+
+                <input
+                  type="number"
+                  id="income"
+                  min="0"
+                  value="70000"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="risk"> Risk Preference </label>
+
+              <select id="risk" required>
+                <option value="low">Low</option>
+
+                <option value="medium" selected>Medium</option>
+
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" id="submitBtn" class="primary-button">
+            <span>Analyze My Investment Profile</span>
+
+            <span class="button-arrow"> → </span>
+          </button>
+        </form>
+      </section>
+
+      <!-- ================= AGENT WORKFLOW ================= -->
+
+      <section class="panel workflow-panel">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">02</span>
+            <h2>Agentic AI Workflow</h2>
+          </div>
+        </div>
+
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="workflow-icon">👤</div>
+            <span>Profile</span>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="workflow-icon">📊</div>
+            <span>Risk</span>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="workflow-icon">⚖️</div>
+            <span>Allocation</span>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="workflow-icon">📈</div>
+            <span>ETF</span>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="workflow-icon">🤖</div>
+            <span>Summary</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= LOADING ================= -->
+
+      <section id="loading" class="loading hidden">
+        <div class="loader"></div>
+
+        <h3>AI agents are working...</h3>
+
+        <p>
+          Analyzing your profile → assessing risk → constructing allocation →
+          researching ETFs
+        </p>
+      </section>
+
+      <!-- ================= RESULTS ================= -->
+
+      <section id="results" class="hidden">
+        <!-- INVESTOR OVERVIEW -->
+
+        <div class="panel">
+          <div class="section-heading">
+            <div>
+              <span class="section-label">03</span>
+              <h2>Investor Analysis</h2>
+            </div>
+          </div>
+
+          <div class="overview-grid">
+            <div class="metric-card">
+              <span>Age</span>
+
+              <strong id="profileAge"> — </strong>
+            </div>
+
+            <div class="metric-card">
+              <span>Goal</span>
+
+              <strong id="profileGoal"> — </strong>
+            </div>
+
+            <div class="metric-card">
+              <span>Horizon</span>
+
+              <strong id="profileHorizon"> — </strong>
+            </div>
+
+            <div class="metric-card">
+              <span>Monthly Income</span>
+
+              <strong id="profileIncome"> — </strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- RISK -->
+
+        <div class="results-grid">
+          <div class="panel">
+            <div class="section-heading">
+              <div>
+                <span class="section-label">04</span>
+                <h2>Risk Assessment</h2>
+              </div>
+            </div>
+
+            <div class="risk-display">
+              <div class="risk-score-circle">
+                <strong id="riskScore"> — </strong>
+
+                <span>/10</span>
+              </div>
+
+              <div>
+                <span class="small-label"> Risk Level </span>
+
+                <h3 id="riskLevel">—</h3>
+
+                <p id="riskExplanation">—</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ALLOCATION -->
+
+          <div class="panel">
+            <div class="section-heading">
+              <div>
+                <span class="section-label">05</span>
+                <h2>Portfolio Allocation</h2>
+              </div>
+            </div>
+
+            <div class="allocation-list">
+              <div class="allocation-row">
+                <div class="allocation-header">
+                  <span>Stocks</span>
+                  <strong id="stocks">0%</strong>
+                </div>
+
+                <div class="progress">
+                  <div id="stocksBar" class="progress-fill stocks-fill"></div>
+                </div>
+              </div>
+
+              <div class="allocation-row">
+                <div class="allocation-header">
+                  <span>Bonds</span>
+                  <strong id="bonds">0%</strong>
+                </div>
+
+                <div class="progress">
+                  <div id="bondsBar" class="progress-fill bonds-fill"></div>
+                </div>
+              </div>
+
+              <div class="allocation-row">
+                <div class="allocation-header">
+                  <span>Gold</span>
+                  <strong id="gold">0%</strong>
+                </div>
+
+                <div class="progress">
+                  <div id="goldBar" class="progress-fill gold-fill"></div>
+                </div>
+              </div>
+
+              <div class="allocation-row">
+                <div class="allocation-header">
+                  <span>Cash</span>
+                  <strong id="cash">0%</strong>
+                </div>
+
+                <div class="progress">
+                  <div id="cashBar" class="progress-fill cash-fill"></div>
+                </div>
+              </div>
+            </div>
+
+            <p id="allocationSummary" class="result-text"></p>
+          </div>
+        </div>
+
+        <!-- ETF -->
+
+        <div class="panel">
+          <div class="section-heading">
+            <div>
+              <span class="section-label">06</span>
+              <h2>ETF Recommendations</h2>
+            </div>
+
+            <span class="live-badge"> ● MARKET DATA </span>
+          </div>
+
+          <div id="etfContainer" class="etf-grid"></div>
+        </div>
+
+        <!-- SUMMARY -->
+
+        <div class="panel summary-panel">
+          <div class="section-heading">
+            <div>
+              <span class="section-label">07</span>
+              <h2>AI Investment Summary</h2>
+            </div>
+          </div>
+
+          <div class="summary-content">
+            <p id="investorSummary"></p>
+
+            <p id="etfSummary"></p>
+          </div>
+        </div>
+
+        <!-- DISCLAIMER -->
+
+        <div class="disclaimer">
+          <div class="disclaimer-icon">⚠</div>
+
+          <div>
+            <strong>Educational Information Only</strong>
+
+            <p id="disclaimer"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
